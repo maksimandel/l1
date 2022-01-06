@@ -4,17 +4,6 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
 <!--    <button v-on:click="counter++">Increase</button>-->
 <!--    <button @click="counter++">Increase</button>-->
-    <button @click="increase(2, $event)">Increase</button>
-    <button @click="resetCounter">Reset Counter</button>
-    {{ counter }}
-    <label for="test">test
-      <input
-          id="test"
-          type="text"
-          @blur="blur"
-          @focus="focus"
-      >
-    </label>
     <CalculatorComp/>
   </div>
 </template>
@@ -35,17 +24,6 @@ export default {
   methods: {
     // increase: function (step, event) {
     //   // eslint-disable-next-line no-plusplus
-    //   this.counter += step;
-    //   console.log(event);
-    // },
-    increase(step, event) {
-      // eslint-disable-next-line no-plusplus
-      this.counter += step;
-      console.log(event);
-    },
-    resetCounter() {
-      this.counter = 0;
-    },
     blur() {
       console.log('blur');
     },
