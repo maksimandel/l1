@@ -1,34 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-<!--    <button v-on:click="counter++">Increase</button>-->
-<!--    <button @click="counter++">Increase</button>-->
-    <CalculatorComp/>
+<!--    <MyCounter v-if="show"/>-->
+<!--    <button @click="show = !show">hide / show</button>-->
+    <header>
+      <div class="header">My personal costs</div>
+    </header>
+
+    <main>
+      <AddPaymentFrom @add-payment="addPayment"/>
+      <br>
+      <PaymentDisplay :items="paymentsList" show/>
+    </main>
   </div>
 </template>
 
 <script>
-import CalculatorComp from '@/components/Calc.vue';
-import HelloWorld from './components/HelloWorld.vue';
+// import MyCounter from '@/components/Counter.vue';
+
+import PaymentDisplay from '@/components/PaymentDisplay.vue';
+import AddPaymentFrom from '@/components/AddPaymentFrom.vue';
 
 export default {
   name: 'App',
   components: {
-    CalculatorComp,
-    HelloWorld,
+    AddPaymentFrom,
+    PaymentDisplay,
+    // MyCounter,
+
   },
   data: () => ({
+    show: true,
     counter: 0,
+    paymentsList: [],
   }),
   methods: {
-    // increase: function (step, event) {
-    //   // eslint-disable-next-line no-plusplus
-    blur() {
-      console.log('blur');
-    },
-    focus() {
-      console.log('focus');
+    addPayment(data) {
+      // console.log(data);
+      this.paymentsList.push(data);
     },
   },
 };
@@ -42,5 +50,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.header {
+  font-size: 26px;
+  font-weight: bold;
 }
 </style>
