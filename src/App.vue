@@ -1,42 +1,36 @@
 <template>
   <div id="app">
-<!--    <MyCounter v-if="show"/>-->
-<!--    <button @click="show = !show">hide / show</button>-->
-    <header>
-      <div class="header">My personal costs</div>
+    <header class="header">
+      <nav>
+        <router-link class="router-link" to="dashboard">Dashboard</router-link>
+        <router-link class="router-link" to="about">About</router-link>
+      </nav>
     </header>
 
+    <button @click="goToPage('notfound')" class="goToPageBtn">Go to Not Found</button>
+
     <main>
-      <AddPaymentFrom @add-payment="addPayment"/>
-      <br>
-      <PaymentDisplay :items="paymentsList" show/>
+      <router-view/>
     </main>
   </div>
 </template>
 
 <script>
-// import MyCounter from '@/components/Counter.vue';
-
-import PaymentDisplay from '@/components/PaymentDisplay.vue';
-import AddPaymentFrom from '@/components/AddPaymentFrom.vue';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'App',
-  components: {
-    AddPaymentFrom,
-    PaymentDisplay,
-    // MyCounter,
 
-  },
+  name: 'App',
   data: () => ({
-    show: true,
-    counter: 0,
-    paymentsList: [],
+    page: 'dashboard',
   }),
   methods: {
-    addPayment(data) {
-      // console.log(data);
-      this.paymentsList.push(data);
+    goToPage(pageName) {
+      this.$router.push(pageName);
+    },
+    ...mapActions(['fetchData']),
+    created() {
+      this.fetchData();
     },
   },
 };
@@ -52,7 +46,23 @@ export default {
   margin-top: 60px;
 }
 .header {
-  font-size: 26px;
-  font-weight: bold;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
+.router-link {
+  margin: 0 5px;
+}
+.router-link {
+  text-decoration: none;
+}
+.goToPageBtn {
+  margin-top: 10px;
+  padding: 7px 15px 5px 15px;
+  background-color: #42b983;
+  color: white;
+  border: none;
+}
+
 </style>

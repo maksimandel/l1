@@ -20,26 +20,26 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'AddPaymentFrom',
   data: () => ({
+    type: '',
+    price: '',
     date: '',
     value: '',
     category: '',
     showInput: false,
   }),
   methods: {
+    ...mapActions(['addNewPayment']),
     addPayments() {
-      const {
-        value, category, date, paymentDay,
-      } = this;
       const data = {
-        date: date || paymentDay,
-        category,
-        value,
+        date: this.date || this.paymentDay,
+        category: this.category,
+        value: +this.value,
       };
-
-      // console.log(data);
       this.$emit('add-payment', data);
     },
   },
