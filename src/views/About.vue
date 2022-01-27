@@ -1,16 +1,23 @@
 <template>
-  <div class="aboutPage">About Page</div>
+  <div>
+    <button @click="authModalOpen">Open auth</button>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'AboutPage',
+  methods: {
+    authModalOpen() {
+      this.$modal.show({
+        title: 'Authorization',
+        content: 'auth',
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
-.aboutPage {
-  margin-top: 15px;
-  font-weight: bold;
-}
+
 </style>

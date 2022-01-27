@@ -12,17 +12,28 @@
     <main>
       <router-view/>
     </main>
+    <transition name="fade">
+      <ModalWindowAddPayment
+        v-if="showModal"
+        :settings="modalSettings"
+        @add-payment="addPayment"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import ModalWindowAddPayment from '@/components/ModalWindowAddPayment.vue';
 
 export default {
 
   name: 'App',
+  components: { ModalWindowAddPayment },
   data: () => ({
     page: 'dashboard',
+    showModal: false,
+    modalSettings: {},
   }),
   methods: {
     goToPage(pageName) {
@@ -32,6 +43,21 @@ export default {
     created() {
       this.fetchData();
     },
+    addPayment(data) {
+      this.ADD_PAYMENT_DATA(data);
+    },
+    modalOpen(settings) {
+      this.modalSettings = settings;
+      this.showModal = true;
+    },
+    modalClose() {
+      this.showModal = false;
+      this.modalSettings = {};
+    },
+  },
+  mounted() {
+    this.$modal.EventBus.$on('show', this.modalOpen);
+    this.$modal.EventBus.$on('hide', this.modalClose);
   },
 };
 </script>
@@ -64,5 +90,10 @@ export default {
   color: white;
   border: none;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 </style>
