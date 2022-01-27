@@ -9,12 +9,12 @@ const router = new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/views/Dashboard.vue'),
+      component: () => import(/* webpackChunkName: "DashboardPage" */ '@/views/Dashboard.vue'),
     },
     {
       path: '/about*',
       name: 'about',
-      component: () => import('@/views/About.vue'),
+      component: () => import(/* webpackChunkName: "About" */ '@/views/About.vue'),
       children: [
         {
           path: '/delivery',
@@ -24,7 +24,7 @@ const router = new Router({
     {
       path: '/dashboard/:type',
       name: 'type',
-      component: () => import('@/views/Dashboard.vue'),
+      component: () => import(/* webpackChunkName: "/dashboard/:type" */ '@/views/Dashboard.vue'),
       children: [
         {
           path: 'dashboard/food',
@@ -32,20 +32,10 @@ const router = new Router({
       ],
     },
     {
-      path: '/dashboard/:price',
-      name: 'price',
-      component: () => import('@/views/Dashboard.vue'),
-      children: [
-        {
-          path: 'dashboard',
-        },
-      ],
-    },
-    {
       path: '/notfound',
       name: 'notfound',
       // component: NotFound,
-      component: () => import('@/views/NotFound.vue'),
+      component: () => import(/* webpackChunkName: "404" */ '@/views/NotFound.vue'),
     },
     {
       path: '*',

@@ -2,10 +2,7 @@
   <div>
     <div class="header">My personal costs</div>
     <div class="total">Total: {{ TotalAmount }}</div>
-    <AddPaymentForm
-      @add-payment="addPayment"
-      :payment="{type: this.$route.params.type, price: this.$route.params.price}"
-    />
+    <button @click="addPayment">Add payment</button>
     <div class="linkBlock">
       <router-link class="routerLink" to="/dashboard/food?price=1000">Food</router-link>
       <br>
@@ -17,26 +14,25 @@
     <router-view></router-view>
     <br>
     <PaymentDisplay :items="paymentsList" show/>
-
   </div>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 import PaymentDisplay from '@/components/PaymentDisplay.vue';
-import AddPaymentForm from '@/components/AddPaymentForm.vue';
 
 export default {
   name: 'DashboardPage',
+
+  components: {
+    PaymentDisplay,
+  },
   data: () => ({
     type: '',
     price: '',
-
+    showModal: false,
+    modalSettings: {},
   }),
-  components: {
-    PaymentDisplay,
-    AddPaymentForm,
-  },
   methods: {
     ...mapMutations(['ADD_PAYMENT_DATA']),
     ...mapActions([
@@ -52,8 +48,18 @@ export default {
     created() {
       this.fetchData();
     },
-    addPayment(data) {
-      this.ADD_PAYMENT_DATA(data);
+    addPayment() {
+      this.$modal.show({
+        title: 'Add new payment',
+        content: 'addPaymentForm',
+      });
+    },
+    authModalOpen() {
+      this.modalSettings = {
+        title: 'Auth',
+        content: 'auth',
+      };
+      this.showModal = true;
     },
   },
   computed: {
@@ -65,7 +71,8 @@ export default {
   mounted() {
     // eslint-disable-next-line no-undef
     this.fetchData();
-    console.log(this.$route);
+    this.$modal.show({});
+    this.$modal.hide();
   },
 };
 </script>

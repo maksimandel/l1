@@ -4,6 +4,9 @@
     <span>{{ item.date }}</span>
     <span>{{ item.category }}</span>
     <span>{{ item.value }}</span>
+    <span>
+      ⋮
+    </span>
   </li>
 </template>
 
@@ -22,6 +25,11 @@ export default {
     },
     index: Number,
   },
+  data() {
+    return {
+      selected: '',
+    };
+  },
 };
 </script>
 
@@ -31,7 +39,7 @@ export default {
   align-items: center;
 
   min-height: 50px;
-  grid-template-columns: 50px 150px 200px 50px;
+  grid-template-columns: 50px 150px 150px 50px 50px;
 
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
 }

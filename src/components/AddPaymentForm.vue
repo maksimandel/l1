@@ -1,7 +1,6 @@
 <template>
   <div>
-    <button class="addCost" @click="showInput =! showInput">ADD NEW COST</button>
-    <div id="inputBlock" v-if="showInput">
+    <div id="inputBlock">
       <label for="Amount">
         <input  id="amount" type="text" placeholder="Payment amount" v-model="value">
       </label>
@@ -20,19 +19,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'AddPaymentFrom',
+  props: {
+    categoryList: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data: () => ({
     type: '',
     price: '',
     date: '',
     value: '',
     category: '',
-    showInput: false,
   }),
   methods: {
+    ...mapMutations(['ADD_PAYMENT_DATA']),
     ...mapActions(['addNewPayment']),
     addPayments() {
       const data = {
@@ -40,7 +45,7 @@ export default {
         category: this.category,
         value: +this.value,
       };
-      this.$emit('add-payment', data);
+      this.ADD_PAYMENT_DATA(data);
     },
   },
   computed: {
@@ -62,14 +67,6 @@ export default {
     height: 20px;
     width: 200px;
   }
-  .addCost {
-    padding: 7px 10px 5px 10px;
-    margin-top: 10px;
-    margin-bottom: 8px;
-    background-color: #42b983;
-    color: white;
-    border: none;
-  }
   .add {
     margin-top: 13px;
     background-color: #42b983;
@@ -77,6 +74,7 @@ export default {
     padding: 7px 30px 5px 30px;
     color: white;
     margin-left: 120px;
+    margin-bottom: 20px;
   }
 
 </style>
