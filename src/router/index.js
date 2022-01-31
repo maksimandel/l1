@@ -43,6 +43,11 @@ const router = new Router({
         name: 'notfound',
       },
     },
+    {
+      path: '/calculator',
+      name: 'calculator',
+      component: () => import(/* webpackChunkName: "Calculator" */ '@/views/Calc.vue'),
+    },
   ],
 });
 
@@ -50,6 +55,7 @@ const titles = {
   dashboard: 'Dashboard',
   about: 'About',
   notfound: 'Not Found',
+  calculator: 'Calculator',
 };
 
 router.afterEach((to) => {
