@@ -2,6 +2,7 @@
   <div id="app">
     <header class="header">
       <nav>
+        <router-link class="router-link" to="calculator">Calculator</router-link>
         <router-link class="router-link" to="dashboard">Dashboard</router-link>
         <router-link class="router-link" to="about">About</router-link>
       </nav>
@@ -85,6 +86,7 @@ export default {
 }
 .goToPageBtn {
   margin-top: 10px;
+  margin-bottom: 15px;
   padding: 7px 15px 5px 15px;
   background-color: #42b983;
   color: white;
