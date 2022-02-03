@@ -1,21 +1,10 @@
 <template>
-  <div>
-    <div id="inputBlock">
-      <label for="Amount">
-        <input  id="amount" type="text" placeholder="Payment amount" v-model="value">
-      </label>
-      <br>
-      <label for="category">
-        <input  id="category" type="text" placeholder="Payment description" v-model="category">
-      </label>
-      <br>
-      <label for="date">
-        <input  id="date" type="text" placeholder="Payment date" v-model="date">
-      </label>
-      <br>
-      <button class="add" @click="addPayments">ADD</button>
-    </div>
-  </div>
+  <v-card class="text-left pa-8">
+    <v-text-field v-model="date" label="Date"/>
+    <v-text-field v-model="category" label="Category"/>
+    <v-text-field v-model="value" label="Value"/>
+    <v-btn @click="addPayments">Add</v-btn>
+  </v-card>
 </template>
 
 <script>
@@ -67,14 +56,4 @@ export default {
     height: 20px;
     width: 200px;
   }
-  .add {
-    margin-top: 13px;
-    background-color: #42b983;
-    border: none;
-    padding: 7px 30px 5px 30px;
-    color: white;
-    margin-left: 120px;
-    margin-bottom: 20px;
-  }
-
 </style>

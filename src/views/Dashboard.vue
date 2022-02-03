@@ -1,30 +1,44 @@
 <template>
-  <div>
-    <div class="header">My personal costs</div>
-    <div class="total">Total: {{ TotalAmount }}</div>
-    <button @click="addPayment">Add payment</button>
-    <div class="linkBlock">
-      <router-link class="routerLink" to="/dashboard/food?price=1000">Food</router-link>
-      <br>
-      <router-link class="routerLink" to="/dashboard/Car?price=500">Car</router-link>
-      <br>
-      <router-link @click="addPaymentsLinks" class="routerLink" to="/dashboard/Gas?price=129">Gas
-      </router-link>
-    </div>
-    <router-view></router-view>
-    <br>
-    <PaymentDisplay :items="paymentsList" show/>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <div class="text-h5">My personal costs</div>
+        <v-dialog v-modal="showModal">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              color="primary"
+              v-on="on"
+              @click="showModal = !showModal"
+            >
+              Add new payment
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <add-payment-from></add-payment-from>
+          </v-card>
+        </v-dialog>
+        <div>
+          <PaymentDisplay :items="paymentsList" show/>
+        </div>
+      </v-col>
+      <v-col>
+        Charts
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 import PaymentDisplay from '@/components/PaymentDisplay.vue';
+import AddPaymentFrom from '@/components/AddPaymentForm.vue';
 
 export default {
   name: 'DashboardPage',
 
   components: {
+    AddPaymentFrom,
     PaymentDisplay,
   },
   data: () => ({
@@ -78,17 +92,5 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  margin-top: 20px;
-  font-size: 26px;
-  font-weight: bold;
-}
-.total {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.routerLink {
-  text-decoration: none;
-}
+
 </style>
